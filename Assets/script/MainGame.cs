@@ -4,6 +4,9 @@ using System.Collections;
 public class MainGame : MonoBehaviour {
 
 	// Use this for initialization
+	private GameObject MainPlayer;
+	private Vector2 SpownPoint = new Vector2 (0, 0);
+
 	void Start () {
 		//Texture2D TTT;
 		//TTT= (Texture2D)Resources.Load ("background001");
@@ -11,6 +14,7 @@ public class MainGame : MonoBehaviour {
 
 		Debug.Log ("11111111111111111");
 		Map.MayInstance.init ();
+		MainPlayer=(GameObject)Instantiate(Resources.Load ("Snake001"),SpownPoint,Quaternion.identity);
 
 		Debug.Log ("666666666666");
 	

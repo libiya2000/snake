@@ -13,7 +13,7 @@ public class Map : MonoBehaviour {
 	//private SortedList<string,Vector2>  TheMap=new SortedList<string, Vector2>();//degine a dictionary一个字典
 	static Map()
 	{
-		Debug.Log ("333333333333333");
+	//	Debug.Log ("333333333333333");
 		UnityEngine.GameObject go = new UnityEngine.GameObject("Map");
 		DontDestroyOnLoad(go);
 		MayInstance = go.AddComponent<Map>();
@@ -23,7 +23,7 @@ public class Map : MonoBehaviour {
 	{
 	}
 	void Start () {
-		Debug.Log ("444444444444444");
+	//	Debug.Log ("444444444444444");
 		SpriteList.Clear ();
 		TheMap.Clear ();
 		MapType = "background001";

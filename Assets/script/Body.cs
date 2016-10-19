@@ -27,8 +27,7 @@ public class Body : MonoBehaviour {
 
 		NextPositionList.Add (head.transform.position);
 		NextPositionList.Add (BodyOne.transform.position);
-		Debug.Log ("ccccc list0"+ "="+ NextPositionList [0].x+
-			"list1"+ "="+ NextPositionList [1].x);
+
 	}
 
 	 
@@ -48,10 +47,6 @@ public class Body : MonoBehaviour {
 			return;
 			//if (Vector2.Distance (FirstT.transform.position, BodyList [0].transform.position) < BodyWidth.x)
 			//	return;
-		Debug.Log ("list0"+ "="+ NextPositionList [0].x+
-			"list1"+ "="+ NextPositionList [1].x+
-			"list2"+ "="+ NextPositionList [2].x);
-
 		for(int i=1;i<BodyList.Count+1;i++) {
 			
 			//BodyList [i].transform.Translate (NextTransformList [i].position*speed*Time.deltaTime);
@@ -67,6 +62,9 @@ public class Body : MonoBehaviour {
 
 			Vector2 xxx = NextPositionList [NextPositionList.Count - 1];
 			GameObject BodyTail=(GameObject)Instantiate(Resources.Load ("Body001"),	xxx,Quaternion.identity);
+			for (int j = 0; j < linedistence; j++) {   //replenish the NextPositionList 
+				NextPositionList.Add (xxx);
+			}
 			BodyList.Add(BodyTail);//BodyAdd ();
 			IsEating=false ;
 		} else {	
@@ -77,14 +75,25 @@ public class Body : MonoBehaviour {
 		}
 	}
 
-	public void BodyAdd()
+	public void BodyReset()
 	{
 		
 	}
 
-	public void BodyRemove()
+	public void BodyRemoveALL()
 	{
+		for (int i = BodyList.Count - 1; i >= 0; i--) {
 		
+			Destroy (BodyList [i]);
+		//	BodyList.RemoveAt (i);
+		}
+	//	for (int j = NextPositionList.Count - 1; j >= 0; j--) {
+
+	//		Destroy (NextPositionList [j]);
+		//	BodyList.RemoveAt (i);
+	//	}
+		BodyList.Clear ();
+		NextPositionList.Clear ();
 	}
 
 }
