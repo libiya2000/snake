@@ -14,6 +14,7 @@ public class MainGame : MonoBehaviour {
 
 		Debug.Log ("11111111111111111");
 		Map.MayInstance.init ();
+		UI_Data.UI_DataInstance.init ();
 		MainPlayer=(GameObject)Instantiate(Resources.Load ("Snake001"),SpownPoint,Quaternion.identity);
 
 		Debug.Log ("666666666666");

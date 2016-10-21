@@ -9,7 +9,6 @@ public class Snakes : MonoBehaviour {
 	public UInt32  Speed=500;
 	public UInt32 BodyLenth = 3;
 
-
 	private Body MyBody;
 	private bool IsEating=false;
 	private bool IsDead=false ;
@@ -36,6 +35,8 @@ public class Snakes : MonoBehaviour {
 		MyBody.BodyInit (SnakeHead);
 
 		MainC.transform.SetParent (SnakeHead.transform);
+		//MyUI = UI_Data.UI_DataInstance;
+
 		//MainC.transform.LookAt (Players.transform);
 		// Move the Snake every 300ms
 		//	InvokeRepeating("Move", 0.3f, TimeMove);
@@ -70,7 +71,8 @@ public class Snakes : MonoBehaviour {
 		if (coll.name.StartsWith("trap")) {
 			// Get longer in next Move call
 			IsEating = true;
-
+			UI_Data.UI_DataInstance.setStates();
+			//	UI_Data.UI_DataInstance.Scores.All += 1;
 			// Remove the Food
 			Destroy(coll.gameObject);
 		}
@@ -100,7 +102,7 @@ public class Snakes : MonoBehaviour {
 		{   
 			dir.x = PositionX;
 			dir.y = PositionY;
-			ONDead(true);
+			//ONDead(true);
 		}  
 	} 
 

@@ -49,6 +49,7 @@
      <Compile Include="Assets\script\MainGame.cs" />
      <Compile Include="Assets\script\Map.cs" />
      <Compile Include="Assets\script\Snakes.cs" />
+     <Compile Include="Assets\script\UI_Data.cs" />
      <Compile Include="Assets\script\player.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/private/learn/U3D/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
