@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Snakes : MonoBehaviour {
 
 	public GameObject SnakeHead;
-	public UInt32  Speed=500;
+	public float  Speed=1.5f;
 	public UInt32 BodyLenth = 3;
 
 	private Body MyBody;
@@ -50,7 +50,7 @@ public class Snakes : MonoBehaviour {
 
 	void FixedUpdate() {
 
-		SnakeHead.transform.position=(Vector2)SnakeHead.transform.position+dir;
+		SnakeHead.transform.position=(Vector2)SnakeHead.transform.position+Speed*dir.normalized;
 		MyBody.BodyFollow (SnakeHead.transform,ref IsEating,Speed);
 
 
@@ -75,6 +75,11 @@ public class Snakes : MonoBehaviour {
 			//	UI_Data.UI_DataInstance.Scores.All += 1;
 			// Remove the Food
 			Destroy(coll.gameObject);
+		}
+		if (coll.name.StartsWith("edge")) {
+			
+			ONDead(true);
+
 		}
 		// Collided with Tail or Border
 		else {

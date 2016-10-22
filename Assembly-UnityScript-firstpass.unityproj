@@ -38,21 +38,27 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/private/learn/U3D/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/private/learn/U3D/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Plugins\EasyTouch\Plugins\_Java-Event-Template\J_EasyButtonTemplate.js" />
      <Compile Include="Assets\Plugins\EasyTouch\Plugins\_Java-Event-Template\J_EasyJoystickTemplate.js" />
      <Compile Include="Assets\Plugins\EasyTouch\Plugins\_Java-Event-Template\J_EasyTouchTemplate.js" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
+     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/private/learn/U3D/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/private/learn/U3D/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

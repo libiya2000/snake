@@ -12,7 +12,7 @@ public class Body : MonoBehaviour {
 	private List<Vector2> NextEulerAnglesList=new List<Vector2>();
 	private List<GameObject> BodyList = new List<GameObject> ();
 	private Vector2 BodyWidth;
-	private int linedistence=20;
+	private int linedistence=10;
 
 	public void BodyInit(GameObject head)
 	{
@@ -31,7 +31,7 @@ public class Body : MonoBehaviour {
 	}
 
 	 
-	public	void BodyFollow(Transform FirstT,ref bool IsEating,UInt32  speed)
+	public	void BodyFollow(Transform FirstT,ref bool IsEating,float  speed)
 	{
 		//NextTransformList.Add (FirstT);
 

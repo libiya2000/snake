@@ -11,11 +11,11 @@ public class MainGame : MonoBehaviour {
 		//Texture2D TTT;
 		//TTT= (Texture2D)Resources.Load ("background001");
 		//Sprite MainMap= Sprite.Create(TTT,new Rect(0, 0, TTT.width, TTT.height),new Vector2(0,0));
-
+		Instantiate(Resources.Load ("background000"),SpownPoint,Quaternion.identity);
 		Debug.Log ("11111111111111111");
 		Map.MayInstance.init ();
 		UI_Data.UI_DataInstance.init ();
-		MainPlayer=(GameObject)Instantiate(Resources.Load ("Snake001"),SpownPoint,Quaternion.identity);
+		MainPlayer=(GameObject)Instantiate(Resources.Load ("head001"),SpownPoint,Quaternion.identity);
 
 		Debug.Log ("666666666666");
 	
