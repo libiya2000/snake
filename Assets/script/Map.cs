@@ -10,6 +10,7 @@ public class Map : MonoBehaviour {
 	public  List<GameObject> SpriteList=new List<GameObject>();
 	private string MapType;
 	private List<KeyValuePair<string,Vector2>> TheMap=new List<KeyValuePair<string,Vector2>>();
+	private GameObject MainMap;
 	//private SortedList<string,Vector2>  TheMap=new SortedList<string, Vector2>();//degine a dictionary一个字典
 	static Map()
 	{
@@ -21,6 +22,7 @@ public class Map : MonoBehaviour {
 	//active Sington  
 	public void init()
 	{
+		
 	}
 	void Start () {
 	//	Debug.Log ("444444444444444");
@@ -28,14 +30,16 @@ public class Map : MonoBehaviour {
 		TheMap.Clear ();
 		MapType = "background001";
 
-		TheMap.Add (new KeyValuePair<string, Vector2>("trap002", new Vector2 (100, 200)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("trap001", new Vector2 (300, 100)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("trap002", new Vector2 (250, 250)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("trap002", new Vector2 (200, 200)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("trap002", new Vector2 (200, 300)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (100, 200)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (300, 100)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (250, 250)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (200, 200)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_blue_001", new Vector2 (200, 300)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Enermy001", new Vector2 (-200, -300)));
 
-		LoadFixMap (TheMap, MapType);
+	
 		//TheMap.Add("trap001",(100,200));
+		InitMap();
 	}
 	
 	// Update is called once per frame
@@ -43,21 +47,22 @@ public class Map : MonoBehaviour {
 	
 	}
 
-	void InitMap()
+	public void InitMap()
 	{
-		
+		GerneralMap ();
 	}
 	public bool GerneralMap()
 	{
-		
+		LoadFixMap (TheMap, MapType);
+		SpawnRandomFood ((int)100);
 		return true;
 	}
 
-	public bool LoadFixMap(List<KeyValuePair<string,Vector2>> The_Map,string MapTypes)
+		public bool LoadFixMap(List<KeyValuePair<string,Vector2>> The_Map,string MapTypes)
 	{
 
 		GameObject Things;
-		GameObject MainMap=(GameObject)Instantiate(Resources.Load (MapTypes),new Vector2(0,0),Quaternion.identity);
+		MainMap=(GameObject)Instantiate(Resources.Load (MapTypes),new Vector2(0,0),Quaternion.identity);
 	//	Debug.Log ("55555555555555555555555555");
 		SpriteList.Add (MainMap);
 	//	Debug.Log ("rrrrrr");
@@ -77,16 +82,38 @@ public class Map : MonoBehaviour {
 	//	Debug.Log ("eeeeee");
 		return true;
 	}
-	void SpawnRandomFood(Sprite backgrond,Sprite food) {
+	void SpawnRandomFood(int number) {
 		// x position between left & right border
-		int x = (int) UnityEngine.Random.Range(backgrond.rect.xMin,backgrond.rect.xMax);
-			
+		Sprite backgrond=MainMap.GetComponent<SpriteRenderer>().sprite;
+		string	Resname;
+		int x, y, type;
+		int i = number;
+		while(i>0)
+		{
+			i--;
+			x= (int)UnityEngine.Random.Range(-512f,512f);
+			y= (int)UnityEngine.Random.Range(-512f,512f);
+			//x= UnityEngine.Random.Range((int)backgrond.rect.xMin,backgrond.rect.xMax);
+			Debug.Log ("55555555555555555555555555"+backgrond.rect.xMin +backgrond.rect.xMax);
 		// y position between top & bottom border
-		int y = (int)UnityEngine.Random.Range(backgrond.rect.yMin,backgrond.rect.yMax);
-			
+			//y =(int) UnityEngine.Random.Range(backgrond.rect.yMin,backgrond.rect.yMax);
+
+			type = UnityEngine.Random.Range((int)1,(int)4);
 		// Instantiate the food at (x, y)
 
+		if (type == 1)
+				Resname = "Food_blue_001";
+		else if (type == 2)
+			Resname = "Food_green_001";
+		else
+			Resname = "Food_red_001";
+			
+
+					
+				
+		Instantiate(Resources.Load (Resname),new Vector2(x,y),Quaternion.identity);
 	//	Instantiate(food,			new Vector2(x, y),			Quaternion.identity); // default rotation
+		}
 	}
 
 	void RemoveFood(GameObject TheFood)

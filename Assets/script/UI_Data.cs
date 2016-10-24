@@ -23,7 +23,7 @@ public class UI_Data : MonoBehaviour {
 //	public GameObject MyCanvas =GameObject.FindGameObjectWithTag("Canvas");
 //	public Image ToolBar;
 	public Slider SkillSlieder;
-
+	public Button ShootButton;
 
 
 	public delegate void UIStatesHandler(float V);
@@ -37,7 +37,8 @@ public class UI_Data : MonoBehaviour {
 	}
 	public void init()
 	{
-		
+		SkillSlieder = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("Slider").gameObject.GetComponent<Slider>();
+		ShootButton = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("Button").gameObject.GetComponent<Button>();
 	}
 	// Use this for initialization
 	void Start () {
@@ -48,7 +49,7 @@ public class UI_Data : MonoBehaviour {
 		Scores.Red = 0;
 		Scores.Yellow = 0;
 
-		SkillSlieder = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("Slider").gameObject.GetComponent<Slider>();
+	
 	//	ToolBar.fillAmount = 1;
 		SkillSlieder.interactable = false;
 		SkillSlieder.value = 0.0f;

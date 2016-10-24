@@ -14,7 +14,7 @@ public class Snakes : MonoBehaviour {
 	private bool IsDead=false ;
 	public float TimeMove=0.1f;
 	private Vector2 SpownPoint = new Vector2 (0, 0);
-
+	private UInt64 EnergyNeed = 5;
 	Vector2 dir = Vector2.right;
 
 
@@ -40,7 +40,9 @@ public class Snakes : MonoBehaviour {
 		//MainC.transform.LookAt (Players.transform);
 		// Move the Snake every 300ms
 		//	InvokeRepeating("Move", 0.3f, TimeMove);
-
+		UI_Data.UI_DataInstance.ShootButton.onClick.AddListener(delegate {
+			Shoot();
+		});
 	}
 	// Update is called once per Frame
 	void Update() {
@@ -68,7 +70,8 @@ public class Snakes : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll) {
 	//	Debug.Log ("ccccc started OnTriggerEnter2D");
 		// Food?
-		if (coll.name.StartsWith("trap")) {
+
+		if (coll.name.StartsWith("Food")) {
 			// Get longer in next Move call
 			IsEating = true;
 			UI_Data.UI_DataInstance.setStates();
@@ -81,12 +84,26 @@ public class Snakes : MonoBehaviour {
 			ONDead(true);
 
 		}
-		// Collided with Tail or Border
-		else {
-			// ToDo 'You lose' screen
+		if (coll.name.StartsWith("Enermy")) {
+
+			ONDead(true);
+
+		}
+	//	if (coll.name.StartsWith("Enermy_Bullet")) {
+
+	//		ONDead(true);
+
+//		}
+	
+	}
+	public void  Shoot()
+	{
+		if (UI_Data.UI_DataInstance.Scores.Red >= EnergyNeed) {
+			UI_Data.UI_DataInstance.Scores.Red -= EnergyNeed;
+			GameObject shootOne = (GameObject)Instantiate (Resources.Load ("Snake_Bullet_001"), this.transform.position, Quaternion.identity);
+			shootOne.GetComponent<Rigidbody2D> ().velocity = (Vector2)dir.normalized * 300;
 		}
 	}
-
 	void OnEnable()  
 
 	{    
