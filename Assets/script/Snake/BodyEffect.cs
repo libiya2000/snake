@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletEffect : MonoBehaviour {
-	public int ThePower=1;
+public class BodyEffect : MonoBehaviour {
+
+
 	// Use this for initialization
 	void Start () {
 	
@@ -16,11 +17,17 @@ public class BulletEffect : MonoBehaviour {
 		//	Debug.Log ("ccccc started OnTriggerEnter2D");
 		// Food?
 
-		if (coll.name.StartsWith("edge")) {
 
-			Destroy (this.transform.gameObject);
+		if (coll.name.StartsWith("Enermy")) {
+
+			gameObject.SendMessageUpwards("BodyMessageDead", true);
 
 		}
+		//	if (coll.name.StartsWith("Enermy_Bullet")) {
+
+		//		ONDead(true);
+
+		//		}
 
 	}
 }

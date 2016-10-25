@@ -8,6 +8,7 @@ public class Snakes : MonoBehaviour {
 	public GameObject SnakeHead;
 	public float  Speed=1.5f;
 	public UInt32 BodyLenth = 3;
+	public bool  GameStop=false;
 
 	private Body MyBody;
 	private bool IsEating=false;
@@ -15,7 +16,7 @@ public class Snakes : MonoBehaviour {
 	public float TimeMove=0.1f;
 	private Vector2 SpownPoint = new Vector2 (0, 0);
 	private UInt64 EnergyNeed = 5;
-	Vector2 dir = Vector2.right;
+	private Vector2 dir = Vector2.right;
 
 
 	public delegate void DeadHandler(bool IsDead_);
@@ -51,15 +52,28 @@ public class Snakes : MonoBehaviour {
 	// Update is called once per frame
 
 	void FixedUpdate() {
-
+		if (GameStop)
+			return;
 		SnakeHead.transform.position=(Vector2)SnakeHead.transform.position+Speed*dir.normalized;
 		MyBody.BodyFollow (SnakeHead.transform,ref IsEating,Speed);
 
 
 	}
+	public void BodyMessageDead(bool IsDead_)
+	{
+		ONDeadtoBorn (IsDead_);
+	}
+
 	void 	ONDeadtoBorn(bool IsDead_)
 	{
-		Debug.Log ("ccccc reBorn");
+		//Debug.Log ("ccccc reBorn"); //dead punish
+		if (UI_Data.UI_DataInstance.Scores.Red > EnergyNeed)
+			UI_Data.UI_DataInstance.Scores.Red -= EnergyNeed;
+		else
+			UI_Data.UI_DataInstance.Scores.Red=0;
+		UI_Data.UI_DataInstance.setbuttonText ((UI_Data.UI_DataInstance.Scores.Red/EnergyNeed).ToString());
+
+		UI_Data.UI_DataInstance.setStates ();
 
 		MyBody.BodyRemoveALL ();
 		SnakeHead.transform.position = SpownPoint;
@@ -70,7 +84,8 @@ public class Snakes : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll) {
 	//	Debug.Log ("ccccc started OnTriggerEnter2D");
 		// Food?
-
+		if (GameStop)
+			return;
 		if (coll.name.StartsWith("Food")) {
 			// Get longer in next Move call
 			IsEating = true;
@@ -78,6 +93,7 @@ public class Snakes : MonoBehaviour {
 			//	UI_Data.UI_DataInstance.Scores.All += 1;
 			// Remove the Food
 			Destroy(coll.gameObject);
+			UI_Data.UI_DataInstance.setbuttonText ((UI_Data.UI_DataInstance.Scores.Red/EnergyNeed).ToString());
 		}
 		if (coll.name.StartsWith("edge")) {
 			
@@ -100,7 +116,12 @@ public class Snakes : MonoBehaviour {
 	{
 		if (UI_Data.UI_DataInstance.Scores.Red >= EnergyNeed) {
 			UI_Data.UI_DataInstance.Scores.Red -= EnergyNeed;
+			UI_Data.UI_DataInstance.setbuttonText ((UI_Data.UI_DataInstance.Scores.Red/EnergyNeed).ToString());
+
 			GameObject shootOne = (GameObject)Instantiate (Resources.Load ("Snake_Bullet_001"), this.transform.position, Quaternion.identity);
+			//set bollet power
+			int power=MyBody.BodyList.Count+1;
+			shootOne.GetComponent<BulletEffect>().ThePower = power;
 			shootOne.GetComponent<Rigidbody2D> ().velocity = (Vector2)dir.normalized * 300;
 		}
 	}

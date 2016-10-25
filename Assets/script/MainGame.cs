@@ -25,4 +25,12 @@ public class MainGame : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void GamePass(int level)
+	{
+		Debug.Log ("Pass level " + level);
+		MainPlayer.GetComponent<Snakes> ().GameStop = true;
+		UI_Data.UI_DataInstance.ShowChooseNextLevel (level);
+
+	}
 }

@@ -1,15 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\Map.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\Body.cs">
     <Files>
-      <File FileName="Assets\script\Map.cs" Line="87" Column="3" />
-      <File FileName="Assets\script\Snakes.cs" Line="105" Column="2" />
-      <File FileName="Assets\script\UI_Data.cs" Line="60" Column="32" />
-      <File FileName="Assets\script\Body.cs" Line="34" Column="65" />
-      <File FileName="Assets\script\MainGame.cs" Line="16" Column="23" />
-      <File FileName="Assets\script\EnermySkills\Skill001.cs" Line="26" Column="2" />
-      <File FileName="Assets\script\EnermySkills\BulletEffect.cs" Line="19" Column="2" />
-      <File FileName="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" Line="33" Column="42" />
+      <File FileName="Assets\script\Enermy\Enermy.cs" Line="24" Column="57" />
+      <File FileName="Assets\script\Snakes.cs" Line="78" Column="15" />
+      <File FileName="Assets\script\Map.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\UI_Data.cs" Line="83" Column="49" />
+      <File FileName="Assets\script\Body.cs" Line="99" Column="61" />
+      <File FileName="Assets\script\MainGame.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\EnermySkills\Skill001.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\EnermySkills\BulletEffect.cs" Line="4" Column="26" />
+      <File FileName="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\Snake\BodyEffect.cs" Line="6" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

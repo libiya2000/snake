@@ -10,7 +10,7 @@ public class Body : MonoBehaviour {
 	//private List<Transform> NextTransformList=new List<Transform>();
 	private List<Vector2> NextPositionList=new List<Vector2>();
 	private List<Vector2> NextEulerAnglesList=new List<Vector2>();
-	private List<GameObject> BodyList = new List<GameObject> ();
+	public List<GameObject> BodyList = new List<GameObject> ();
 	private Vector2 BodyWidth;
 	private int linedistence=10;
 
@@ -65,7 +65,9 @@ public class Body : MonoBehaviour {
 			for (int j = 0; j < linedistence; j++) {   //replenish the NextPositionList 
 				NextPositionList.Add (xxx);
 			}
+			BodyTail.transform.SetParent (FirstT);
 			BodyList.Add(BodyTail);//BodyAdd ();
+			UI_Data.UI_DataInstance.setPowerStates(30,BodyList.Count);
 			IsEating=false ;
 		} else {	
 			if (NextPositionList.Count < linedistence * 2)
@@ -94,6 +96,7 @@ public class Body : MonoBehaviour {
 	//	}
 		BodyList.Clear ();
 		NextPositionList.Clear ();
+		UI_Data.UI_DataInstance.setPowerStates(30,BodyList.Count);
 	}
 
 }

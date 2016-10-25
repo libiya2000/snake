@@ -51,6 +51,7 @@
      <Compile Include="Assets\script\EnermySkills\Skill001.cs" />
      <Compile Include="Assets\script\MainGame.cs" />
      <Compile Include="Assets\script\Map.cs" />
+     <Compile Include="Assets\script\Snake\BodyEffect.cs" />
      <Compile Include="Assets\script\Snakes.cs" />
      <Compile Include="Assets\script\UI_Data.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
