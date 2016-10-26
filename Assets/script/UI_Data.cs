@@ -27,6 +27,8 @@ public class UI_Data : MonoBehaviour {
 	public Slider PoweSlieder;
 	public Button ShootButton;
 	public Canvas CanvasOne;
+	public Canvas GameOverCanvas;
+	public Text TimeLimite;
 
 	public Canvas NextCanvas;
 	public int TheLevel=1;
@@ -47,9 +49,13 @@ public class UI_Data : MonoBehaviour {
 		ShootButton = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("Button").gameObject.GetComponent<Button>();
 		EnermyBlood=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderEnermy").gameObject.GetComponent<Slider>();
 		PoweSlieder=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderPower").gameObject.GetComponent<Slider>();
+		TimeLimite=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("TextTimeLimit").gameObject.GetComponent<Text>();
+
 		PoweSlieder.value = 0;
 		EnermyBlood.value = 1f;
 		NextCanvas = (UnityEngine.Canvas)GameObject.FindGameObjectWithTag ("NextCanvas").gameObject.GetComponent<Canvas>();
+		GameOverCanvas = (UnityEngine.Canvas)GameObject.FindGameObjectWithTag ("GameOverCanvas").gameObject.GetComponent<Canvas>();
+		GameOverCanvas.gameObject.SetActive (false);
 		NextCanvas.gameObject.SetActive (false);
 
 		//	ToolBar.fillAmount = 1;
@@ -117,5 +123,16 @@ public class UI_Data : MonoBehaviour {
 	public void LoadNextLevel()
 	{
 		
+	}
+
+	public void GameOver()
+	{
+		CanvasOne.gameObject.SetActive (false);
+		GameOverCanvas.gameObject.SetActive (true);
+	}
+	public void SetTimeLimit(string T)
+	{
+		TimeLimite.text = T;
+
 	}
 }

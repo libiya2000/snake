@@ -8,6 +8,7 @@ public class Map : MonoBehaviour {
 	public static Map MayInstance;
 	// Use this for initialization
 	public  List<GameObject> SpriteList=new List<GameObject>();
+	public int TimeLimit;
 	private string MapType;
 	private List<KeyValuePair<string,Vector2>> TheMap=new List<KeyValuePair<string,Vector2>>();
 	private GameObject MainMap;
@@ -29,6 +30,9 @@ public class Map : MonoBehaviour {
 		SpriteList.Clear ();
 		TheMap.Clear ();
 		MapType = "background001";
+		TimeLimit = 300;
+
+
 
 		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (100, 200)));
 		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (300, 100)));
@@ -40,6 +44,7 @@ public class Map : MonoBehaviour {
 	
 		//TheMap.Add("trap001",(100,200));
 		InitMap();
+		InvokeRepeating ("TimeCountDown", 1, 1);
 	}
 	
 	// Update is called once per frame
@@ -123,6 +128,14 @@ public class Map : MonoBehaviour {
 	
 	}
 
-
+	public void  TimeCountDown()
+	{
+		TimeLimit--;
+		UI_Data.UI_DataInstance.SetTimeLimit (TimeLimit.ToString ());
+		if (TimeLimit == 0) {
+			CancelInvoke ();
+			UI_Data.UI_DataInstance.GameOver ();
+		}
+	}
 
 }
