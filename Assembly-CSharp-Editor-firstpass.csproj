@@ -89,6 +89,9 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>D:/private/learn/U3D/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="LitJson">
+ <HintPath>D:/private/learn/Project/snake/Assets/LitJson.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">

@@ -2,23 +2,26 @@
 using System.Collections;
 using System; 
 using System.Collections.Generic;
+using System.IO;
+using LitJson;
 
 public class Map : MonoBehaviour {
 	//单例模式
-	public static Map MayInstance;
+	public static Map MyInstance;
 	// Use this for initialization
 	public  List<GameObject> SpriteList=new List<GameObject>();
 	public int TimeLimit;
 	private string MapType;
 	private List<KeyValuePair<string,Vector2>> TheMap=new List<KeyValuePair<string,Vector2>>();
 	private GameObject MainMap;
+	private  Dictionary<string, string> Dic_Map = new Dictionary<string, string>();  
 	//private SortedList<string,Vector2>  TheMap=new SortedList<string, Vector2>();//degine a dictionary一个字典
 	static Map()
 	{
 	//	Debug.Log ("333333333333333");
 		UnityEngine.GameObject go = new UnityEngine.GameObject("Map");
 		DontDestroyOnLoad(go);
-		MayInstance = go.AddComponent<Map>();
+		MyInstance = go.AddComponent<Map>();
 	}
 	//active Sington  
 	public void init()
@@ -30,7 +33,7 @@ public class Map : MonoBehaviour {
 		SpriteList.Clear ();
 		TheMap.Clear ();
 		MapType = "background001";
-		TimeLimit = 300;
+		TimeLimit = 10;
 
 
 
@@ -99,7 +102,7 @@ public class Map : MonoBehaviour {
 			x= (int)UnityEngine.Random.Range(-512f,512f);
 			y= (int)UnityEngine.Random.Range(-512f,512f);
 			//x= UnityEngine.Random.Range((int)backgrond.rect.xMin,backgrond.rect.xMax);
-			Debug.Log ("55555555555555555555555555"+backgrond.rect.xMin +backgrond.rect.xMax);
+		//	Debug.Log ("55555555555555555555555555"+backgrond.rect.xMin +backgrond.rect.xMax);
 		// y position between top & bottom border
 			//y =(int) UnityEngine.Random.Range(backgrond.rect.yMin,backgrond.rect.yMax);
 
@@ -112,10 +115,7 @@ public class Map : MonoBehaviour {
 			Resname = "Food_green_001";
 		else
 			Resname = "Food_red_001";
-			
 
-					
-				
 		Instantiate(Resources.Load (Resname),new Vector2(x,y),Quaternion.identity);
 	//	Instantiate(food,			new Vector2(x, y),			Quaternion.identity); // default rotation
 		}
@@ -134,8 +134,63 @@ public class Map : MonoBehaviour {
 		UI_Data.UI_DataInstance.SetTimeLimit (TimeLimit.ToString ());
 		if (TimeLimit == 0) {
 			CancelInvoke ();
+
 			UI_Data.UI_DataInstance.GameOver ();
 		}
 	}
 
+	public  void LoadNewMap(int Level)
+	{
+		CancelInvoke ();
+		string FolderName = Path.Combine(Application.dataPath, "Map");  // "Map_00" + Level + ".json";
+		string 	FileName=Path.Combine(FolderName,  "Map_00" + Level + ".json"); 
+			if(!Directory.Exists(FolderName)) {  
+			return;  
+			}  
+		if (File.Exists (FileName)) {  
+			FileStream fs = new FileStream (FileName, FileMode.Open);  
+			StreamReader sr = new StreamReader (fs);  
+			JsonData values = JsonMapper.ToObject (sr.ReadToEnd ());
+
+			foreach (var key in values.Keys) {  
+				Dic_Map.Add (key, values [key].ToString ());  
+				Debug.Log (key+"  "+values [key].ToString());
+			}  
+			if (fs != null) {  
+				fs.Close ();  
+			}  
+			if (sr != null) {  
+				sr.Close ();  
+			}  
+		} else
+			return;
+
+		//	Debug.Log ("444444444444444");
+		SpriteList.Clear ();
+		TheMap.Clear ();
+		Dic_Map.TryGetValue( "background",out MapType);
+
+		string xxx;
+		Dic_Map.TryGetValue ("timelimit", out xxx);
+		TimeLimit = int.Parse(xxx);
+
+
+		/*
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (100, 200)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (300, 100)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (250, 250)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (200, 200)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Food_blue_001", new Vector2 (200, 300)));
+		TheMap.Add (new KeyValuePair<string, Vector2>("Enermy001", new Vector2 (-200, -300)));
+		*/
+
+		//TheMap.Add("trap001",(100,200));
+		InitMap();
+		InvokeRepeating ("TimeCountDown", 1, 1);
+	}
+
+	void CloseOldMap()
+	{
+		
+	}
 }

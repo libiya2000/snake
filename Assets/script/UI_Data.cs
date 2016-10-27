@@ -26,6 +26,7 @@ public class UI_Data : MonoBehaviour {
 	public Slider EnermyBlood;
 	public Slider PoweSlieder;
 	public Button ShootButton;
+	public Button QuitButton;
 	public Canvas CanvasOne;
 	public Canvas GameOverCanvas;
 	public Text TimeLimite;
@@ -51,10 +52,26 @@ public class UI_Data : MonoBehaviour {
 		PoweSlieder=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderPower").gameObject.GetComponent<Slider>();
 		TimeLimite=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("TextTimeLimit").gameObject.GetComponent<Text>();
 
+		QuitButton=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("QuitButton").gameObject.GetComponent<Button>();
+		QuitButton.onClick.AddListener (delegate {
+			Quit ();
+		});
 		PoweSlieder.value = 0;
 		EnermyBlood.value = 1f;
 		NextCanvas = (UnityEngine.Canvas)GameObject.FindGameObjectWithTag ("NextCanvas").gameObject.GetComponent<Canvas>();
 		GameOverCanvas = (UnityEngine.Canvas)GameObject.FindGameObjectWithTag ("GameOverCanvas").gameObject.GetComponent<Canvas>();
+		NextCanvas.transform.FindChild ("ButtonNext").gameObject.GetComponent<Button> ().onClick.AddListener (delegate {
+			LoadNextLevel();	
+		});
+		NextCanvas.transform.FindChild ("ButtonQuit").gameObject.GetComponent<Button> ().onClick.AddListener (delegate {
+			Quit();	
+		});
+		GameOverCanvas.transform.FindChild ("Quit").gameObject.GetComponent<Button> ().onClick.AddListener (delegate {
+			Quit();	
+		});
+		GameOverCanvas.transform.FindChild ("Restart").gameObject.GetComponent<Button> ().onClick.AddListener (delegate {
+			LoadNextLevel();	
+		});
 		GameOverCanvas.gameObject.SetActive (false);
 		NextCanvas.gameObject.SetActive (false);
 
@@ -122,11 +139,12 @@ public class UI_Data : MonoBehaviour {
 	}
 	public void LoadNextLevel()
 	{
-		
+		Map.MyInstance.LoadNewMap (TheLevel);
 	}
 
 	public void GameOver()
 	{
+		GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<MainGame> ().GamePass (0);
 		CanvasOne.gameObject.SetActive (false);
 		GameOverCanvas.gameObject.SetActive (true);
 	}
@@ -135,4 +153,11 @@ public class UI_Data : MonoBehaviour {
 		TimeLimite.text = T;
 
 	}
+	private void  Quit()
+	{
+		Debug.Log ("quit");
+		Application.Quit ();
+	}
+
+
 }

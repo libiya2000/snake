@@ -13,7 +13,7 @@ public class MainGame : MonoBehaviour {
 		//Sprite MainMap= Sprite.Create(TTT,new Rect(0, 0, TTT.width, TTT.height),new Vector2(0,0));
 		Instantiate(Resources.Load ("background000"),SpownPoint,Quaternion.identity);
 		Debug.Log ("11111111111111111");
-		Map.MayInstance.init();
+		Map.MyInstance.init();
 		UI_Data.UI_DataInstance.init ();
 		MainPlayer=(GameObject)Instantiate(Resources.Load ("head001"),SpownPoint,Quaternion.identity);
 
@@ -30,7 +30,8 @@ public class MainGame : MonoBehaviour {
 	{
 		Debug.Log ("Pass level " + level);
 		MainPlayer.GetComponent<Snakes> ().GameStop = true;
-		UI_Data.UI_DataInstance.ShowChooseNextLevel (level);
+		if(level !=0)
+			UI_Data.UI_DataInstance.ShowChooseNextLevel (level);
 
 	}
 }
