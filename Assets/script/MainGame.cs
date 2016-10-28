@@ -30,8 +30,17 @@ public class MainGame : MonoBehaviour {
 	{
 		Debug.Log ("Pass level " + level);
 		MainPlayer.GetComponent<Snakes> ().GameStop = true;
-		if(level !=0)
-			UI_Data.UI_DataInstance.ShowChooseNextLevel (level);
+		UI_Data.UI_DataInstance.ShowChooseNextLevel (level);
 
+	}
+	public void GamesStop()
+	{
+		MainPlayer.GetComponent<Snakes> ().GameStop = true;
+	}
+
+	public void GamesBegin()
+	{
+		MainPlayer.GetComponent<Snakes> ().GameStop = false ;
+		MainPlayer.GetComponent<Snakes> ().ReLive ();
 	}
 }

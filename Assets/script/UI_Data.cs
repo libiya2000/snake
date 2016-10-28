@@ -70,7 +70,7 @@ public class UI_Data : MonoBehaviour {
 			Quit();	
 		});
 		GameOverCanvas.transform.FindChild ("Restart").gameObject.GetComponent<Button> ().onClick.AddListener (delegate {
-			LoadNextLevel();	
+			Restart();	
 		});
 		GameOverCanvas.gameObject.SetActive (false);
 		NextCanvas.gameObject.SetActive (false);
@@ -140,11 +140,21 @@ public class UI_Data : MonoBehaviour {
 	public void LoadNextLevel()
 	{
 		Map.MyInstance.LoadNewMap (TheLevel);
+		CanvasOne.gameObject.SetActive (true);
+		NextCanvas.gameObject.SetActive (false);
+		GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<MainGame> ().GamesBegin();
 	}
+	public void	Restart()
+	{
+		Map.MyInstance.LoadNewMap (TheLevel);
+		CanvasOne.gameObject.SetActive (true);
+		GameOverCanvas.gameObject.SetActive (false);
+		GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<MainGame> ().GamesBegin();
 
+	}
 	public void GameOver()
 	{
-		GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<MainGame> ().GamePass (0);
+		GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<MainGame> ().GamesStop();
 		CanvasOne.gameObject.SetActive (false);
 		GameOverCanvas.gameObject.SetActive (true);
 	}

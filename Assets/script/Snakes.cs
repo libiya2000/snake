@@ -64,6 +64,10 @@ public class Snakes : MonoBehaviour {
 		ONDeadtoBorn (IsDead_);
 	}
 
+	public  void ReLive()
+	{
+		ONDeadtoBorn (true);
+	}
 	void 	ONDeadtoBorn(bool IsDead_)
 	{
 		//Debug.Log ("ccccc reBorn"); //dead punish

@@ -33,7 +33,7 @@ public class Map : MonoBehaviour {
 		SpriteList.Clear ();
 		TheMap.Clear ();
 		MapType = "background001";
-		TimeLimit = 10;
+		TimeLimit = 300;
 
 
 
@@ -116,7 +116,8 @@ public class Map : MonoBehaviour {
 		else
 			Resname = "Food_red_001";
 
-		Instantiate(Resources.Load (Resname),new Vector2(x,y),Quaternion.identity);
+			GameObject foods=(GameObject)	Instantiate(Resources.Load (Resname),new Vector2(x,y),Quaternion.identity);
+			SpriteList.Add (foods);
 	//	Instantiate(food,			new Vector2(x, y),			Quaternion.identity); // default rotation
 		}
 	}
@@ -141,7 +142,11 @@ public class Map : MonoBehaviour {
 
 	public  void LoadNewMap(int Level)
 	{
-		CancelInvoke ();
+		
+		CancelInvoke ();	
+		CloseOldMap ();
+		Dic_Map.Clear ();
+
 		string FolderName = Path.Combine(Application.dataPath, "Map");  // "Map_00" + Level + ".json";
 		string 	FileName=Path.Combine(FolderName,  "Map_00" + Level + ".json"); 
 			if(!Directory.Exists(FolderName)) {  
@@ -164,33 +169,29 @@ public class Map : MonoBehaviour {
 			}  
 		} else
 			return;
-
-		//	Debug.Log ("444444444444444");
 		SpriteList.Clear ();
 		TheMap.Clear ();
-		Dic_Map.TryGetValue( "background",out MapType);
+		MapType=Dic_Map ["background"];
+		//Dic_Map.TryGetValue( "background",out MapType);
 
-		string xxx;
-		Dic_Map.TryGetValue ("timelimit", out xxx);
-		TimeLimit = int.Parse(xxx);
-
-
-		/*
-		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (100, 200)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (300, 100)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (250, 250)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (200, 200)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("Food_blue_001", new Vector2 (200, 300)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("Enermy001", new Vector2 (-200, -300)));
-		*/
-
-		//TheMap.Add("trap001",(100,200));
+		//string xxx;
+		//Dic_Map.TryGetValue ("timelimit", out xxx);
+		TimeLimit = int.Parse(Dic_Map ["timelimit"]);
 		InitMap();
 		InvokeRepeating ("TimeCountDown", 1, 1);
 	}
 
 	void CloseOldMap()
 	{
-		
+		int NUM = SpriteList.Count;
+		GameObject G;
+		for (int i=NUM-1;i>0;i--)
+		{
+			G = SpriteList [i];
+			SpriteList.RemoveAt(i);
+			Destroy (G);
+
+		}
+			
 	}
 }

@@ -83,14 +83,14 @@
  <Reference Include="UnityEditor.TreeEditor">
  <HintPath>D:/private/learn/U3D/Unity/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
  </Reference>
+ <Reference Include="LitJson">
+ <HintPath>D:/private/learn/Project/snake/Assets/LitJson.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>D:/private/learn/U3D/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>D:/private/learn/U3D/Unity/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="LitJson">
- <HintPath>D:/private/learn/Project/snake/Assets/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
