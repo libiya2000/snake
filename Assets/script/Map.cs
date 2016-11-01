@@ -138,6 +138,8 @@ public class Map : MonoBehaviour {
 
 			UI_Data.UI_DataInstance.GameOver ();
 		}
+		if(SpriteList.Count<100)
+			SpawnRandomFood ((int)10);
 	}
 
 	public  void LoadNewMap(int Level)

@@ -31,6 +31,7 @@ public class maptool : MonoBehaviour {
 			MapInit ("Map", "Map_00" + i+".json");
 			Dic_Value.Add ("background", "background00" + i);
 			Dic_Value.Add ("timelimit", "30" + i);
+			Dic_Value.Add ("bossname", "Enermy00" + i);
 
 			Save (Dic_Value);
 		}
