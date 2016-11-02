@@ -10,6 +10,7 @@ public class Snakes : MonoBehaviour {
 	public UInt32 BodyLenth = 3;
 	public bool  GameStop=false;
 
+	private  int PowerMax=30;
 	private Body MyBody;
 	private bool IsEating=false;
 	private bool IsDead=false ;
@@ -41,8 +42,14 @@ public class Snakes : MonoBehaviour {
 		//MainC.transform.LookAt (Players.transform);
 		// Move the Snake every 300ms
 		//	InvokeRepeating("Move", 0.3f, TimeMove);
-		UI_Data.UI_DataInstance.ShootButton.onClick.AddListener(delegate {
-			Shoot();
+		UI_Data.UI_DataInstance.ShootButtonRed.onClick.AddListener(delegate {
+			Shoot("Red");
+		});
+		UI_Data.UI_DataInstance.ShootButtonBlue.onClick.AddListener(delegate {
+			Shoot("Blue");
+		});
+		UI_Data.UI_DataInstance.ShootButtonGreen.onClick.AddListener(delegate {
+			Shoot("Green");
 		});
 	}
 	// Update is called once per Frame
@@ -68,16 +75,30 @@ public class Snakes : MonoBehaviour {
 	{
 		ONDeadtoBorn (true);
 	}
-	void 	ONDeadtoBorn(bool IsDead_)
+
+	private  void punish()
 	{
 		//Debug.Log ("ccccc reBorn"); //dead punish
 		if (UI_Data.UI_DataInstance.Scores.Red > EnergyNeed)
 			UI_Data.UI_DataInstance.Scores.Red -= EnergyNeed;
 		else
 			UI_Data.UI_DataInstance.Scores.Red=0;
-		UI_Data.UI_DataInstance.setbuttonText ((UI_Data.UI_DataInstance.Scores.Red/EnergyNeed).ToString());
+		if (UI_Data.UI_DataInstance.Scores.Blue > EnergyNeed)
+			UI_Data.UI_DataInstance.Scores.Blue -= EnergyNeed;
+		else
+			UI_Data.UI_DataInstance.Scores.Blue=0;
 
-		UI_Data.UI_DataInstance.setStates ();
+		if (UI_Data.UI_DataInstance.Scores.Green > EnergyNeed)
+			UI_Data.UI_DataInstance.Scores.Green -= EnergyNeed;
+		else
+			UI_Data.UI_DataInstance.Scores.Green=0;
+		
+	}
+	void 	ONDeadtoBorn(bool IsDead_)
+	{
+		punish ();
+		UI_Data.UI_DataInstance.setbuttonText (EnergyNeed);
+		UI_Data.UI_DataInstance.UpdateSkillSlieder ();
 
 		MyBody.BodyRemoveALL ();
 		SnakeHead.transform.position = SpownPoint;
@@ -93,11 +114,13 @@ public class Snakes : MonoBehaviour {
 		if (coll.name.StartsWith("Food")) {
 			// Get longer in next Move call
 			IsEating = true;
-			UI_Data.UI_DataInstance.setStates();
+			string[] strs = coll.name.Split(new string[]{"_"},StringSplitOptions.None);
+			Debug.Log ("_______" +strs [0]+"_______"+ strs [1]+"_______"+strs [2]);
+			UI_Data.UI_DataInstance.setStates(strs[1]);
 			//	UI_Data.UI_DataInstance.Scores.All += 1;
 			// Remove the Food
 			Destroy(coll.gameObject);
-			UI_Data.UI_DataInstance.setbuttonText ((UI_Data.UI_DataInstance.Scores.Red/EnergyNeed).ToString());
+			UI_Data.UI_DataInstance.setbuttonText (EnergyNeed);
 		}
 		if (coll.name.StartsWith("edge")) {
 			
@@ -116,18 +139,42 @@ public class Snakes : MonoBehaviour {
 //		}
 	
 	}
-	public void  Shoot()
+	public void  Shoot(string type)
 	{
-		if (UI_Data.UI_DataInstance.Scores.Red >= EnergyNeed) {
-			UI_Data.UI_DataInstance.Scores.Red -= EnergyNeed;
-			UI_Data.UI_DataInstance.setbuttonText ((UI_Data.UI_DataInstance.Scores.Red/EnergyNeed).ToString());
-
-			GameObject shootOne = (GameObject)Instantiate (Resources.Load ("Snake_Bullet_001"), this.transform.position, Quaternion.identity);
-			//set bollet power
-			int power=MyBody.BodyList.Count+1;
+		GameObject shootOne;
+		if(type =="Red")
+		{
+			if (UI_Data.UI_DataInstance.Scores.Red >= EnergyNeed) {
+				UI_Data.UI_DataInstance.Scores.Red -= EnergyNeed;
+				shootOne = (GameObject)Instantiate (Resources.Load ("Snake_Bullet_red_001"), this.transform.position, Quaternion.identity);
+			}//set bollet power
+			else
+				return;
+		}
+		else if(type =="Green")
+		{
+			if (UI_Data.UI_DataInstance.Scores.Green >= EnergyNeed) {
+				UI_Data.UI_DataInstance.Scores.Green -= EnergyNeed;
+				shootOne = (GameObject)Instantiate (Resources.Load ("Snake_Bullet_green_001"), this.transform.position, Quaternion.identity);
+			}//set bollet power
+			else
+				return;
+		}
+		else if (type == "Blue") {
+			if (UI_Data.UI_DataInstance.Scores.Blue >= EnergyNeed) {
+				UI_Data.UI_DataInstance.Scores.Blue -= EnergyNeed;
+				shootOne = (GameObject)Instantiate (Resources.Load ("Snake_Bullet_blue_001"), this.transform.position, Quaternion.identity);
+			}//set bollet power
+			else
+				return;
+		} else
+			return;
+		
+			UI_Data.UI_DataInstance.setbuttonText (EnergyNeed);
+			int power = Math.Min (MyBody.BodyList.Count + 1, PowerMax);
 			shootOne.GetComponent<BulletEffect>().ThePower = power;
 			shootOne.GetComponent<Rigidbody2D> ().velocity = (Vector2)dir.normalized * 300;
-		}
+
 	}
 	void OnEnable()  
 

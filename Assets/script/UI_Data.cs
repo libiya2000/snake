@@ -8,8 +8,8 @@ public struct ScoreType
 {
 	public	UInt64 All;
 	public	UInt64 Red ;
-	public	UInt64 Bule;
-	public	UInt64 Yellow;
+	public	UInt64 Blue;
+	public	UInt64 Green;
 }
 
 public class UI_Data : MonoBehaviour {
@@ -22,10 +22,14 @@ public class UI_Data : MonoBehaviour {
 
 //	public GameObject MyCanvas =GameObject.FindGameObjectWithTag("Canvas");
 //	public Image ToolBar;
-	public Slider SkillSlieder;
+	public Slider SkillSliederGreen;
+	public Slider SkillSliederBlue;
+	public Slider SkillSliederRed;
 	public Slider EnermyBlood;
 	public Slider PoweSlieder;
-	public Button ShootButton;
+	public Button ShootButtonGreen;
+	public Button ShootButtonBlue;
+	public Button ShootButtonRed;
 	public Button QuitButton;
 	public Canvas CanvasOne;
 	public Canvas GameOverCanvas;
@@ -34,9 +38,10 @@ public class UI_Data : MonoBehaviour {
 	public Canvas NextCanvas;
 	public int TheLevel=1;
 
-	public delegate void UIStatesHandler(float V);
-	public  event UIStatesHandler ONStatesChange;
+//	public delegate void UIStatesHandler(float V);
+//	public  event UIStatesHandler ONStatesChange;
 
+	public  UInt64 skillPowerMax=20;
 	static UI_Data()
 	{
 		UnityEngine.GameObject go = new UnityEngine.GameObject("UI");
@@ -46,8 +51,16 @@ public class UI_Data : MonoBehaviour {
 	public void init()
 	{
 		CanvasOne = (UnityEngine.Canvas)GameObject.FindGameObjectWithTag ("Canvas").gameObject.GetComponent<Canvas>();
-		SkillSlieder = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("Slider").gameObject.GetComponent<Slider>();
-		ShootButton = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("Button").gameObject.GetComponent<Button>();
+		SkillSliederGreen = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderGreen").gameObject.GetComponent<Slider>();
+		ShootButtonGreen=SkillSliederGreen.transform.FindChild ("Button").gameObject.GetComponent<Button> ();
+		SkillSliederGreen.value = 0;
+		SkillSliederBlue = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderBlue").gameObject.GetComponent<Slider>();
+		ShootButtonBlue=SkillSliederBlue.transform.FindChild ("Button").gameObject.GetComponent<Button> ();
+		SkillSliederBlue.value = 0;
+		SkillSliederRed = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderRed").gameObject.GetComponent<Slider>();
+		ShootButtonRed=SkillSliederRed.transform.FindChild ("Button").gameObject.GetComponent<Button> ();
+		SkillSliederRed.value = 0;
+		//ShootButton = GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("Button").gameObject.GetComponent<Button>();
 		EnermyBlood=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderEnermy").gameObject.GetComponent<Slider>();
 		PoweSlieder=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("SliderPower").gameObject.GetComponent<Slider>();
 		TimeLimite=GameObject.FindGameObjectWithTag("Canvas").transform.FindChild ("TextTimeLimit").gameObject.GetComponent<Text>();
@@ -76,26 +89,47 @@ public class UI_Data : MonoBehaviour {
 		NextCanvas.gameObject.SetActive (false);
 
 		//	ToolBar.fillAmount = 1;
-		SkillSlieder.interactable = false;
-		SkillSlieder.value = 0.0f;
+
 	}
 	// Use this for initialization
 	void Start () {
 		 
-		ONStatesChange += UpdataSlieder;
+		//ONStatesChange += UpdataSlieder;
 		Scores.All = 0;
-		Scores.Bule = 0;
+		Scores.Blue = 0;
 		Scores.Red = 0;
-		Scores.Yellow = 0;
+		Scores.Green = 0;
 
 	
 
 	}
-	public void setStates()
+	public void setStates(string type)
+	{	
+		
+		if(type =="red")			
+			Scores.Red++;
+		else if (type == "blue")
+			Scores.Blue++;
+		else if (type == "green")
+			Scores.Green++;
+		else
+			return;
+		Scores.Red = Math.Min (Scores.Red, skillPowerMax);
+		Scores.Blue = Math.Min (Scores.Blue, skillPowerMax);
+		Scores.Green = Math.Min (Scores.Green, skillPowerMax);
+
+	//	Debug.Log (Scores.Green + " " + Scores.Blue + " " + Scores.Red);
+		UpdateSkillSlieder ();
+
+	}
+	public void UpdateSkillSlieder()
 	{
-		Scores.Red++;
-		float xxx = (float)((decimal)Scores.Red / 20);
-		ONStatesChange (xxx);
+
+		SkillSliederRed.value = (float)((decimal)Scores.Red/ skillPowerMax);
+		SkillSliederBlue.value = (float)((decimal)Scores.Blue/skillPowerMax);
+		SkillSliederGreen.value = (float)((decimal)Scores.Green/skillPowerMax);
+		//Debug.Log (SkillSliederRed.value +" "+  SkillSliederBlue.value +" "+ SkillSliederGreen.value);
+		
 	}
 
 	public void setPowerStates(int full,int current)
@@ -113,11 +147,7 @@ public class UI_Data : MonoBehaviour {
 
 	}
 
-	void  UpdataSlieder(float NewValue)
-	{
-		SkillSlieder.value = NewValue;
-		Debug.Log ("newwwwwwwwwww"+NewValue);
-	}
+
 	// Update is called once per frame
 	void Update () {
 	//	ToolBar.fillAmount -= 1.0f/30 * Time.deltaTime;
@@ -125,10 +155,12 @@ public class UI_Data : MonoBehaviour {
 
 	}
 
-	public void setbuttonText(string SS)
+	public void setbuttonText(UInt64 EnergyNeed)
 	{
-		Text  tt=	(UnityEngine.UI.Text)ShootButton.transform.FindChild ("Text").gameObject.GetComponent<Text>();
-		tt.text = SS;
+		ShootButtonRed.transform.FindChild ("Text").gameObject.GetComponent<Text>().text=(Scores.Red/EnergyNeed).ToString();
+		ShootButtonBlue.transform.FindChild ("Text").gameObject.GetComponent<Text>().text=(Scores.Blue/EnergyNeed).ToString();
+		ShootButtonGreen.transform.FindChild ("Text").gameObject.GetComponent<Text>().text=(Scores.Green/EnergyNeed).ToString();
+
 	}
 
 	public void ShowChooseNextLevel(int Level)

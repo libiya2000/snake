@@ -47,6 +47,8 @@
   <ItemGroup>
      <Compile Include="Assets\script\Body.cs" />
      <Compile Include="Assets\script\Enermy\Enermy.cs" />
+     <Compile Include="Assets\script\Enermy\Enermy_level2.cs" />
+     <Compile Include="Assets\script\Enermy\Enermy_level3.cs" />
      <Compile Include="Assets\script\EnermySkills\BulletEffect.cs" />
      <Compile Include="Assets\script\EnermySkills\Skill001.cs" />
      <Compile Include="Assets\script\MainGame.cs" />

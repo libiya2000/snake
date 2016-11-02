@@ -13,7 +13,7 @@ public class Body : MonoBehaviour {
 	public List<GameObject> BodyList = new List<GameObject> ();
 	private Vector2 BodyWidth;
 	private int linedistence=10;
-
+	private  int PowerMax=30;
 	public void BodyInit(GameObject head)
 	{
 		BodyList.Clear ();
@@ -67,7 +67,7 @@ public class Body : MonoBehaviour {
 			}
 			BodyTail.transform.SetParent (FirstT);
 			BodyList.Add(BodyTail);//BodyAdd ();
-			UI_Data.UI_DataInstance.setPowerStates(30,BodyList.Count);
+			UI_Data.UI_DataInstance.setPowerStates(PowerMax,BodyList.Count);
 			IsEating=false ;
 		} else {	
 			if (NextPositionList.Count < linedistence * 2)
@@ -96,7 +96,7 @@ public class Body : MonoBehaviour {
 	//	}
 		BodyList.Clear ();
 		NextPositionList.Clear ();
-		UI_Data.UI_DataInstance.setPowerStates(30,BodyList.Count);
+		UI_Data.UI_DataInstance.setPowerStates(PowerMax,BodyList.Count);
 	}
 
 }
