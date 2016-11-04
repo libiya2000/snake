@@ -42,6 +42,7 @@ public class UI_Data : MonoBehaviour {
 //	public  event UIStatesHandler ONStatesChange;
 
 	public  UInt64 skillPowerMax=20;
+	private  bool GamePause=false ;
 	static UI_Data()
 	{
 		UnityEngine.GameObject go = new UnityEngine.GameObject("UI");
@@ -69,6 +70,7 @@ public class UI_Data : MonoBehaviour {
 		QuitButton.onClick.AddListener (delegate {
 			Quit ();
 		});
+		QuitButton.gameObject.SetActive (false);
 		PoweSlieder.value = 0;
 		EnermyBlood.value = 1f;
 		NextCanvas = (UnityEngine.Canvas)GameObject.FindGameObjectWithTag ("NextCanvas").gameObject.GetComponent<Canvas>();
@@ -152,6 +154,30 @@ public class UI_Data : MonoBehaviour {
 	void Update () {
 	//	ToolBar.fillAmount -= 1.0f/30 * Time.deltaTime;
 		//ToolBar.fillAmount =Scores.All;
+		// 返回键
+
+		if ( Application.platform == RuntimePlatform.Android &&(Input.GetKeyDown(KeyCode.Escape)))
+		{
+			//....
+			if (GamePause == false ) {
+				CanvasOne.gameObject.SetActive (false);
+				GameOverCanvas.gameObject.SetActive (true);
+				GamePause = true;
+				Time.timeScale = 0;
+			} else {
+				CanvasOne.gameObject.SetActive (true);
+				GameOverCanvas.gameObject.SetActive (false);
+				GamePause = false;
+				Time.timeScale = 1;
+			}
+		}
+		// Home键
+
+
+		if ( Application.platform == RuntimePlatform.Android &&(Input.GetKeyDown(KeyCode.Home) ))
+		{
+			//.....
+		}
 
 	}
 
@@ -200,6 +226,5 @@ public class UI_Data : MonoBehaviour {
 		Debug.Log ("quit");
 		Application.Quit ();
 	}
-
 
 }
