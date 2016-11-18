@@ -4,7 +4,7 @@ using System.Collections;
 public class MainGame : MonoBehaviour {
 
 	// Use this for initialization
-	private GameObject MainPlayer;
+	public GameObject MainPlayer;
 	private Vector2 SpownPoint = new Vector2 (0, 0);
 
 	void Start () {
