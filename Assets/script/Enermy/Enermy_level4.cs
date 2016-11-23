@@ -13,24 +13,30 @@ public class Enermy_level4 : MonoBehaviour {
 	private Animator A1;
 	public  float A1speed = 0.7f;
 	public  float Movespeed=40f;
+	public int AnimaStatus = 0;
 
 	private GameObject MainP;
 	private  GameObject effectOBJ;
+	private Transform childt;
 	// Use this for initialization
 	void Start () {
 		Health = full;
 		A1 = this.transform.gameObject.GetComponent<Animator> ();
 		A1.speed = A1speed;
 		MainP = GameObject.FindGameObjectWithTag ("MainCamera");
-		InvokeRepeating ("MoveToPlayer",2f,10f);
-		InvokeRepeating ("skillCrash",7f,8f);
-		effectOBJ=transform.FindChild ("霸王龙_3").gameObject;
-		effectOBJ.SetActive( false);
+		InvokeRepeating ("MoveToPlayer",2f,15f);
+		InvokeRepeating ("skillCrash",3f,8f);
+
+		Transform childt =	transform.FindChild ("FireBall");
+		childt.gameObject.SetActive (false);
+	//	effectOBJ=transform.FindChild ("霸王龙_3").gameObject;
+	//	effectOBJ.SetActive( false);
 	}
 
 	// Update is called once per frame
 	void Update () {
 		A1.speed = A1speed;
+	
 	}
 	void OnTriggerEnter2D(Collider2D coll) {
 		//	Debug.Log ("ccccc started OnTriggerEnter2D");
@@ -115,8 +121,32 @@ public class Enermy_level4 : MonoBehaviour {
 
 	private void skillCrash()
 	{
-		transform.gameObject.GetComponent<Rigidbody2D> ().velocity *= 5f;
-		A1.speed = A1speed*3;
+		AnimaStatus = 1;
+		//AnimaStatus=A1.GetInteger ("Status");
+		transform.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2(0,0);
+		A1.Play ("FireSkill");
+
+		//Debug.Log (AnimaStatus + "ooooooooooooooooo");
+		//A1.SetInteger ("Status", AnimaStatus);
+		//transform.gameObject.GetComponent<Rigidbody2D> ().velocity *= 5f;
+		//A1.speed = A1speed*3;
+	}
+	public void fire()
+	{
+		StartCoroutine_Auto( Do_fire ());
+
+	}
+	public IEnumerator Do_fire()
+	{
+		Transform childt =	transform.FindChild ("FireBall");
+		childt.gameObject.SetActive (true);
+		childt.GetComponent<ParticleSystem> ().Play ();
+		//childt.rotation = Quaternion.FromToRotation (Vector3.right, V);
+		while(childt.GetComponent<ParticleSystem> ().isPlaying)
+			yield return null;
+		childt.gameObject.SetActive (false);
+		A1.Play ("walk");
+		MoveToPlayer ();
 	}
 }
 
