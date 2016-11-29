@@ -89,7 +89,7 @@ public class UI_Data : MonoBehaviour {
 		});
 		GameOverCanvas.gameObject.SetActive (false);
 		NextCanvas.gameObject.SetActive (false);
-
+		TheLevel = GlobalData.MyGlobalData.SelectLevel;
 		//	ToolBar.fillAmount = 1;
 
 	}

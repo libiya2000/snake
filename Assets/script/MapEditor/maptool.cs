@@ -32,6 +32,7 @@ public class maptool : MonoBehaviour {
 			Dic_Value.Add ("background", "background00" + i);
 			Dic_Value.Add ("timelimit", "30" + i);
 			Dic_Value.Add ("bossname", "Enermy00" + i);
+			Dic_Value.Add ("bossSpownPoint", "200,300");
 
 			Save (Dic_Value);
 		}

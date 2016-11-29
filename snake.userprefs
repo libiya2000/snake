@@ -1,23 +1,26 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\Enermy\Enermy_level4.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\Map.cs">
     <Files>
-      <File FileName="Assets\script\Enermy\Enermy_level3.cs" Line="89" Column="41" />
-      <File FileName="Assets\script\Map.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\UI_Data.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\Enermy\Enermy_level3.cs" Line="54" Column="48" />
+      <File FileName="Assets\script\Map.cs" Line="71" Column="23" />
+      <File FileName="Assets\script\UI_Data.cs" Line="92" Column="2" />
       <File FileName="Assets\script\Snakes.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\Enermy\Enermy.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\Enermy\Enermy.cs" Line="39" Column="40" />
       <File FileName="Assets\script\Body.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\MainGame.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\EnermySkills\Skill001.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\MainGame.cs" Line="15" Column="4" />
+      <File FileName="Assets\script\EnermySkills\Skill001.cs" Line="29" Column="76" />
       <File FileName="Assets\script\EnermySkills\BulletEffect.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Utility\ParticleSystemDestroyer.cs" Line="1" Column="1" />
       <File FileName="Assets\script\Snake\BodyEffect.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\MapEditor\maptool.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\Enermy\Enermy_level2.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\moneystuff\crypt.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\Enermy\Enermy_level4.cs" Line="28" Column="2" />
-      <File FileName="Assets\script\effect\ScaleParticles.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\MapEditor\maptool.cs" Line="39" Column="3" />
+      <File FileName="Assets\script\Enermy\Enermy_level2.cs" Line="12" Column="17" />
+      <File FileName="Assets\script\moneystuff\CryptoPrefs.cs" Line="8" Column="64" />
+      <File FileName="Assets\script\Enermy\Enermy_level4.cs" Line="60" Column="48" />
+      <File FileName="Assets\script\effect\FireParticl.cs" Line="22" Column="166" />
+      <File FileName="Assets\script\scene\UI_Main.cs" Line="83" Column="12" />
+      <File FileName="Assets\Standard Assets\Utility\ObjectResetter.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\global_data\GlobalData.cs" Line="8" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

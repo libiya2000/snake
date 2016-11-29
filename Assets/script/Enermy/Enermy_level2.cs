@@ -11,6 +11,7 @@ public class Enermy_level2 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Health = full;
+
 	}
 
 	// Update is called once per frame
@@ -34,7 +35,7 @@ public class Enermy_level2 : MonoBehaviour {
 			Destroy (coll.gameObject);
 			UI_Data.UI_DataInstance.setEnermyStates(full,Health);
 			if (Health == 0) {
-				GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<MainGame> ().GamePass (1);
+				GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<MainGame> ().GamePass (2);
 				Destroy (this.transform.gameObject);
 			}
 		}

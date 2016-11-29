@@ -12,12 +12,13 @@ public class MainGame : MonoBehaviour {
 		//TTT= (Texture2D)Resources.Load ("background001");
 		//Sprite MainMap= Sprite.Create(TTT,new Rect(0, 0, TTT.width, TTT.height),new Vector2(0,0));
 		Instantiate(Resources.Load ("background000"),SpownPoint,Quaternion.identity);
-		Debug.Log ("11111111111111111");
+	//	Debug.Log ("11111111111111111");
 		Map.MyInstance.init();
 		UI_Data.UI_DataInstance.init ();
 		MainPlayer=(GameObject)Instantiate(Resources.Load ("head001"),SpownPoint,Quaternion.identity);
 
-		Debug.Log ("666666666666");
+	//	Debug.Log ("________666666666666"+GlobalData.MyGlobalData.SelectLevel);
+
 	
 	}
 	
@@ -30,6 +31,7 @@ public class MainGame : MonoBehaviour {
 	{
 		Debug.Log ("Pass level " + level);
 		MainPlayer.GetComponent<Snakes> ().GameStop = true;
+		GlobalData.MyGlobalData.SetMaxPassLevel	 (level + 1);
 		UI_Data.UI_DataInstance.ShowChooseNextLevel (level);
 
 	}

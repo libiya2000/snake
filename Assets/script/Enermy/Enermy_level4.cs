@@ -57,7 +57,7 @@ public class Enermy_level4 : MonoBehaviour {
 			Destroy (coll.gameObject);
 			UI_Data.UI_DataInstance.setEnermyStates(full,Health);
 			if (Health == 0) {
-				MainP.GetComponent<MainGame> ().GamePass (1);
+				MainP.GetComponent<MainGame> ().GamePass (4);
 				Destroy (this.transform.gameObject);
 			}
 		}

@@ -10,7 +10,10 @@ public class Map : MonoBehaviour {
 	public static Map MyInstance;
 	// Use this for initialization
 	public  List<GameObject> SpriteList=new List<GameObject>();
-	public int TimeLimit;
+	public int MaxSpawnFood=200;
+	public Vector2 BossSpownpoint;
+	public int TimeLimit=0;
+	private  string EnermyBoss;
 	private string MapType;
 	private List<KeyValuePair<string,Vector2>> TheMap=new List<KeyValuePair<string,Vector2>>();
 	private GameObject MainMap;
@@ -32,9 +35,16 @@ public class Map : MonoBehaviour {
 	//	Debug.Log ("444444444444444");
 		SpriteList.Clear ();
 		TheMap.Clear ();
-		MapType = "background001";
-		TimeLimit = 300;
-
+		LoadNewMap (GlobalData.MyGlobalData.SelectLevel);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+		
+	public bool InitMap()
+	{
 
 
 		TheMap.Add (new KeyValuePair<string, Vector2>("Food_red_001", new Vector2 (100, 200)));
@@ -42,57 +52,41 @@ public class Map : MonoBehaviour {
 		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (250, 250)));
 		TheMap.Add (new KeyValuePair<string, Vector2>("Food_green_001", new Vector2 (200, 200)));
 		TheMap.Add (new KeyValuePair<string, Vector2>("Food_blue_001", new Vector2 (200, 300)));
-		TheMap.Add (new KeyValuePair<string, Vector2>("Enermy001", new Vector2 (-200, -300)));
-
 	
+
+
 		//TheMap.Add("trap001",(100,200));
-		InitMap();
+	
 		InvokeRepeating ("TimeCountDown", 1, 1);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-	public void InitMap()
-	{
-		GerneralMap ();
-	}
-	public bool GerneralMap()
-	{
 		LoadFixMap (TheMap, MapType);
-		SpawnRandomFood ((int)100);
+		SpawnRandomFood (MaxSpawnFood);
 		return true;
 	}
 
-		public bool LoadFixMap(List<KeyValuePair<string,Vector2>> The_Map,string MapTypes)
+	public bool LoadFixMap(List<KeyValuePair<string,Vector2>> The_Map,string MapTypes)
 	{
 
 		GameObject Things;
-		MainMap=(GameObject)Instantiate(Resources.Load (MapTypes),new Vector2(0,0),Quaternion.identity);
-	//	Debug.Log ("55555555555555555555555555");
-		SpriteList.Add (MainMap);
-	//	Debug.Log ("rrrrrr");
-		//Sprite.Instantiate ((UnityEngine.GameObject)Resources.Load (MapTypes), Vector3.zero,Quaternion.identity); //backgroad
+		SpriteList.Add ((GameObject)Instantiate (Resources.Load (MapTypes), new Vector2 (0, 0), Quaternion.identity));
+		if (EnermyBoss == "Enermy002") {
+			SpriteList.Add ((GameObject)Instantiate(Resources.Load (EnermyBoss),new Vector2(300,-300),Quaternion.identity));
+		}
+		SpriteList.Add ((GameObject)Instantiate(Resources.Load (EnermyBoss),BossSpownpoint,Quaternion.identity));
+	
 		foreach(KeyValuePair<string,Vector2> KV in The_Map)
 		{
 			/// TTT = (Texture2D)Resources.Load (KV.Key);
 			//Sprite Things= Sprite.Create(TTT,new Rect(0, 0, TTT.width, TTT.height),KV.Value);
 			//Debug.Log ("xxxxx");
 			 Things=(GameObject)Instantiate(Resources.Load (KV.Key),KV.Value,Quaternion.identity);
-
-			//Sprite Things = Sprite.Instantiate ((Sprite)Resources.Load (KV.Key), new Vector3 (KV.Value.x, KV.Value.y, 0),
-			//	Quaternion.identity);
 			SpriteList.Add (Things);
 		}
 
-	//	Debug.Log ("eeeeee");
 		return true;
 	}
 	void SpawnRandomFood(int number) {
 		// x position between left & right border
-		Sprite backgrond=MainMap.GetComponent<SpriteRenderer>().sprite;
+		//Sprite backgrond=MainMap.GetComponent<SpriteRenderer>().sprite;
 		string	Resname;
 		int x, y, type;
 		int i = number;
@@ -138,7 +132,7 @@ public class Map : MonoBehaviour {
 
 			UI_Data.UI_DataInstance.GameOver ();
 		}
-		if(SpriteList.Count<100)
+		if(SpriteList.Count<MaxSpawnFood)
 			SpawnRandomFood ((int)10);
 	}
 
@@ -174,6 +168,13 @@ public class Map : MonoBehaviour {
 		SpriteList.Clear ();
 		TheMap.Clear ();
 		MapType=Dic_Map ["background"];
+		EnermyBoss = Dic_Map ["bossname"];
+
+		string[] p=new string [2];
+		p = Dic_Map ["bossSpownPoint"].Split(',');
+		BossSpownpoint.x = int.Parse (p [0]);
+		BossSpownpoint.y = int.Parse (p [1]);
+
 		//Dic_Map.TryGetValue( "background",out MapType);
 
 		//string xxx;
